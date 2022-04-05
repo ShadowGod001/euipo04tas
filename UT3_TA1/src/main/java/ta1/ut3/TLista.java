@@ -43,10 +43,27 @@ public class TLista<T> {
         }
     }    
     
+    public TNodo<T> eliminar(Comparable etiqueta) {
+        TNodo<T> aux = this.primero;
+        TNodo<T> aEliminar = null;
+        
+        if(aux != null && aux.getEtiqueta().compareTo(etiqueta) == 0) {
+            this.primero = aux.getSiguiente();
+        }
+        while(aux != null && aux.getSiguiente() != null && etiqueta.compareTo(aux.getSiguiente().getEtiqueta()) != 0) {
+            aux = aux.getSiguiente();
+        }
+        if (aux != null && aux.getSiguiente() != null) {
+            aEliminar = aux.getSiguiente();
+            aux.setSiguiente(aux.getSiguiente().getSiguiente());
+        }
+        return aEliminar;
+    }
+    
     public TNodo<T> buscar(Comparable etiqueta) {
         TNodo<T> aux = this.primero;
         while (aux != null) {
-            if (aux.getEtiqueta() == etiqueta) {
+            if (aux.getEtiqueta().compareTo(etiqueta) == 0) {
                 return aux;
             }
             aux = aux.getSiguiente();
